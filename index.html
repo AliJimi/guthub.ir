@@ -1,162 +1,360 @@
 <!DOCTYPE html>
-<html dir="rtl">
+<html lang="fa" dir="rtl">
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guthub.ir | داشبورد تولید ویدئو با هوش مصنوعی</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700&display=swap" rel="stylesheet">
-    <link href="https://guthub.ir/index.css" rel="stylesheet">
-    <!-- تایتل سایت -->
-<title>Guthub.ir | داشبورد تولید ویدئو با هوش مصنوعی</title>
+    <style>
+      :root {
+        --primary-50: #eff6ff;
+        --primary-100: #dbeafe;
+        --primary-500: #3b82f6;
+        --primary-600: #2563eb;
+        --primary-700: #1d4ed8;
+        --secondary-50: #f8fafc;
+        --secondary-100: #f1f5f9;
+        --secondary-200: #e2e8f0;
+        --secondary-700: #334155;
+        --amber-50: #fffbeb;
+        --amber-200: #fde68a;
+        --amber-600: #d97706;
+        --amber-800: #92400e;
+      }
 
-<!-- آیکون .ico -->
-<link rel="icon" type="image/x-icon" href="/favicon.ico">
+      body {
+        margin: 0;
+        font-family: 'Vazirmatn', sans-serif;
+        background-color: var(--secondary-50);
+        color: var(--secondary-700);
+      }
 
+      .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background-color: var(--primary-600);
+        color: white;
+        padding: 1rem 2rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        z-index: 20;
+      }
+
+      .navbar-content {
+        max-width: 1280px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .sidebar {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 240px;
+        height: 100vh;
+        background: white;
+        padding: 6rem 1.5rem 2rem;
+        box-shadow: -2px 0 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .sidebar-link {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1rem;
+        color: var(--secondary-700);
+        text-decoration: none;
+        border-radius: 0.5rem;
+        transition: all 0.2s;
+      }
+
+      .sidebar-link:hover {
+        background-color: var(--primary-50);
+        color: var(--primary-600);
+      }
+
+      .main-content {
+        margin-right: 240px;
+        padding: 6rem 2rem 2rem;
+        max-width: 1280px;
+      }
+
+      .section-card {
+        background: white;
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        border: 1px solid var(--secondary-100);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+      }
+
+      .tools-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+      }
+
+      .tools-table th,
+      .tools-table td {
+        padding: 1rem;
+        text-align: right;
+        border-bottom: 1px solid var(--secondary-200);
+      }
+
+      .tools-table th {
+        background: var(--secondary-50);
+        font-weight: 500;
+      }
+
+      .tool-link {
+        color: var(--primary-600);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+
+      .tool-link:hover {
+        color: var(--primary-700);
+        text-decoration: underline;
+      }
+
+      .steps-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .steps-list li {
+        padding: 1rem;
+        background: white;
+        border: 1px solid var(--secondary-100);
+        border-radius: 0.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .notice-card {
+        background-color: var(--amber-50);
+        border: 1px solid var(--amber-200);
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+        color: var(--amber-800);
+      }
+
+      @media (max-width: 768px) {
+        .sidebar {
+          transform: translateX(100%);
+          transition: transform 0.3s ease-in-out;
+        }
+
+        .sidebar.active {
+          transform: translateX(0);
+        }
+
+        .main-content {
+          margin-right: 0;
+          padding: 5rem 1rem 1rem;
+        }
+
+        .menu-button {
+          display: block;
+        }
+      }
+
+      .menu-button {
+        display: none;
+        background: none;
+        border: none;
+        color: white;
+        cursor: pointer;
+        padding: 0.5rem;
+      }
+
+      @media (max-width: 768px) {
+        .menu-button {
+          display: block;
+        }
+      }
+    </style>
   </head>
   <body>
-    <!-- نوبار ساده -->
-<nav style="background-color: #2d89ef; padding: 1rem 2rem; color: white; font-family: 'Vazirmatn', sans-serif;">
-  <h1 style="margin: 0;">🎬 داشبورد تولید ویدئو</h1>
-</nav>
+    <nav class="navbar">
+      <div class="navbar-content">
+        <button class="menu-button" onclick="toggleSidebar()">☰</button>
+        <h1>داشبورد تولید ویدئو با هوش مصنوعی</h1>
+        <span>Guthub.ir</span>
+      </div>
+    </nav>
 
-<!-- سایدبار ساده -->
-<aside style="width: 240px; height: 100vh; background-color: #f0f4f8; padding: 2rem; float: right; font-family: 'Vazirmatn', sans-serif;">
-  <ul style="list-style: none; padding: 0;">
-    <li><a href="#step1" style="text-decoration: none; color: #333;">📝 ایده‌پردازی</a></li>
-    <li><a href="#step2" style="text-decoration: none; color: #333;">🖼 تولید تصویر</a></li>
-    <li><a href="#step3" style="text-decoration: none; color: #333;">🎵 موسیقی</a></li>
-    <li><a href="#step4" style="text-decoration: none; color: #333;">🗣 صدای روایت</a></li>
-    <li><a href="#step5" style="text-decoration: none; color: #333;">🎥 ساخت ویدئو</a></li>
-    <li><a href="#step6" style="text-decoration: none; color: #333;">🎞 انیمیشن</a></li>
-    <li><a href="#step7" style="text-decoration: none; color: #333;">✂️ تدوین</a></li>
-  </ul>
-</aside>
-<section style="max-width: 900px; margin: 2rem auto; padding: 2rem; background: #ffffff; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.05); line-height: 1.8; direction: rtl; font-family: 'Vazirmatn', sans-serif;">
-  <h2 style="color: #2d89ef;">توضیح مراحل تولید ویدئو</h2>
-<table border="1" cellpadding="8" cellspacing="0">
-  <thead>
-    <tr>
-      <th>مرحله تولید</th>
-      <th>شرح</th>
-      <th>ابزارهای پیشنهادی</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>۱. ایده‌پردازی و نگارش متن</td>
-      <td>تهیه سناریو و متن روایت برای ویدئو.</td>
-      <td>
-        <a href="https://chat.openai.com" target="_blank">ChatGPT</a>,
-        <a href="https://grok.x.ai" target="_blank">Grok</a>,
-        <a href="https://deepseek.com" target="_blank">DeepSeek</a>,
-        <a href="https://gemini.google.com" target="_blank">Gemini</a>
-      </td>
-    </tr>
-    <tr>
-      <td rowspan="2">۲. تولید تصاویر، ارتقا و ویرایش</td>
-      <td>ایجاد تصاویر مرتبط با سناریو.</td>
-      <td>
-        <a href="https://leonardo.ai" target="_blank">Leonardo</a>,
-        <a href="https://openai.com/dall-e" target="_blank">DALL·E 3</a>,
-        <a href="https://www.bing.com/images/create" target="_blank">Bing Image Creator</a>,
-        <a href="https://www.craiyon.com" target="_blank">Craiyon</a>,
-        <a href="https://lexica.art" target="_blank">Lexica</a>,
-        <a href="https://deepai.org" target="_blank">DeepAI</a>,
-        <a href="https://www.artbreeder.com" target="_blank">Artbreeder</a>
-      </td>
-    </tr>
-    <tr>
-      <td>ارتقا و ویرایش تصاویر</td>
-      <td>
-        <a href="https://upscayl.org" target="_blank">Upscayl</a>,
-        <a href="https://www.adobe.com/products/photoshop.html" target="_blank">Adobe Photoshop</a>,
-        <a href="https://firefly.adobe.com" target="_blank">Adobe Firefly</a>
-      </td>
-    </tr>
-    <tr>
-      <td>۳. تولید موسیقی پس‌زمینه</td>
-      <td>ساخت موسیقی متناسب با فضای ویدئو.</td>
-      <td>
-        <a href="https://boomy.com" target="_blank">Boomy</a>,
-        <a href="https://www.udio.com" target="_blank">Udio</a>,
-        <a href="https://suno.com" target="_blank">Suno</a>,
-        <a href="https://soundraw.io" target="_blank">Soundraw</a>
-      </td>
-    </tr>
-    <tr>
-      <td>۴. تولید صدای روایت</td>
-      <td>تبدیل متن روایت به گفتار با صدای طبیعی.</td>
-      <td>
-        <a href="https://voicemaker.in" target="_blank">VoiceMaker</a>,
-        <a href="https://elevenlabs.io" target="_blank">ElevenLabs</a>,
-        <a href="https://podcastle.ai" target="_blank">Podcastle</a>,
-        <a href="https://speechify.com" target="_blank">Speechify</a>,
-        <a href="https://ttsmp3.com" target="_blank">TTSMP3</a>
-      </td>
-    </tr>
-    <tr>
-      <td>۵. تولید ویدیو</td>
-      <td>تبدیل تصاویر به ویدیو در سکانس‌های مختلف.</td>
-      <td>
-        <a href="https://www.veed.io" target="_blank">Veed.io</a>,
-        <a href="https://invideo.io" target="_blank">InVideo</a>,
-        <a href="https://runwayml.com" target="_blank">Runway</a>,
-        <a href="https://www.wan.video" target="_blank">Wan.video</a>,
-        <a href="https://pixverse.ai" target="_blank">Pixverse</a>,
-        <a href="https://lumalabs.ai" target="_blank">Luma</a>,
-        <a href="https://openai.com/sora" target="_blank">Sora</a>
-      </td>
-    </tr>
-    <tr>
-      <td>۶. افزودن انیمیشن (اختیاری)</td>
-      <td>ایجاد انیمیشن‌های ساده برای افزایش جذابیت ویدئو.</td>
-      <td>
-        <a href="https://www.animaker.com" target="_blank">Animaker</a>,
-        <a href="https://www.blender.org" target="_blank">Blender</a>,
-        <a href="https://www.moovly.com" target="_blank">Moovly</a>,
-        <a href="https://www.deepmotion.com" target="_blank">DeepMotion</a>
-      </td>
-    </tr>
-    <tr>
-      <td>۷. تدوین ویدئو</td>
-      <td>ترکیب تصاویر، موسیقی و صدای روایت؛ افزودن زیرنویس و افکت‌های لازم.</td>
-      <td>
-        <a href="https://www.adobe.com/products/premiere.html" target="_blank">Adobe Premiere</a>,
-        <a href="https://www.adobe.com/products/aftereffects.html" target="_blank">After Effects</a>,
-        <a href="https://www.capcut.com" target="_blank">CapCut</a>,
-        <a href="https://www.blackmagicdesign.com/products/davinciresolve" target="_blank">DaVinci Resolve</a>,
-        <a href="https://www.veed.io" target="_blank">Veed.io</a>,
-        <a href="https://www.canva.com" target="_blank">Canva</a>,
-        <a href="https://maestra.ai" target="_blank">Maestra.ai</a>,
-        <a href="https://www.kapwing.com" target="_blank">Kapwing</a>,
-        <a href="https://shotcut.org" target="_blank">Shotcut</a>,
-        <a href="https://www.openshot.org" target="_blank">OpenShot</a>
-      </td>
-    </tr>
-  </tbody>
-</table>
+    <aside class="sidebar" id="sidebar">
+      <ul class="steps-list">
+        <li><a href="#step1" class="sidebar-link" onclick="closeSidebarOnMobile()">📝 ایده‌پردازی</a></li>
+        <li><a href="#step2" class="sidebar-link" onclick="closeSidebarOnMobile()">🖼 تولید تصویر</a></li>
+        <li><a href="#step3" class="sidebar-link" onclick="closeSidebarOnMobile()">🎵 موسیقی</a></li>
+        <li><a href="#step4" class="sidebar-link" onclick="closeSidebarOnMobile()">🗣 صدای روایت</a></li>
+        <li><a href="#step5" class="sidebar-link" onclick="closeSidebarOnMobile()">🎥 ساخت ویدئو</a></li>
+        <li><a href="#step6" class="sidebar-link" onclick="closeSidebarOnMobile()">🎞 انیمیشن</a></li>
+        <li><a href="#step7" class="sidebar-link" onclick="closeSidebarOnMobile()">✂️ تدوین</a></li>
+      </ul>
+    </aside>
 
-  </div>
-</section>
+    <main class="main-content">
+      <section class="section-card">
+        <h2>ابزارهای تولید ویدئو با هوش مصنوعی</h2>
+        <div class="table-container">
+          <table class="tools-table">
+            <thead>
+              <tr>
+                <th>مرحله تولید</th>
+                <th>شرح</th>
+                <th>ابزارهای پیشنهادی</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>۱. ایده‌پردازی و نگارش متن</td>
+                <td>تهیه سناریو و متن روایت برای ویدئو.</td>
+                <td>
+                  <a href="https://chat.openai.com" target="_blank" class="tool-link">ChatGPT</a>,
+                  <a href="https://grok.x.ai" target="_blank" class="tool-link">Grok</a>,
+                  <a href="https://deepseek.com" target="_blank" class="tool-link">DeepSeek</a>,
+                  <a href="https://gemini.google.com" target="_blank" class="tool-link">Gemini</a>
+                </td>
+              </tr>
+              <tr>
+                <td rowspan="2">۲. تولید تصاویر، ارتقا و ویرایش</td>
+                <td>ایجاد تصاویر مرتبط با سناریو.</td>
+                <td>
+                  <a href="https://leonardo.ai" target="_blank" class="tool-link">Leonardo</a>,
+                  <a href="https://openai.com/dall-e" target="_blank" class="tool-link">DALL·E 3</a>,
+                  <a href="https://www.bing.com/images/create" target="_blank" class="tool-link">Bing Image Creator</a>,
+                  <a href="https://www.craiyon.com" target="_blank" class="tool-link">Craiyon</a>,
+                  <a href="https://lexica.art" target="_blank" class="tool-link">Lexica</a>
+                </td>
+              </tr>
+              <tr>
+                <td>ارتقا و ویرایش تصاویر</td>
+                <td>
+                  <a href="https://upscayl.org" target="_blank" class="tool-link">Upscayl</a>,
+                  <a href="https://firefly.adobe.com" target="_blank" class="tool-link">Adobe Firefly</a>
+                </td>
+              </tr>
+              <tr>
+                <td>۳. تولید موسیقی پس‌زمینه</td>
+                <td>ساخت موسیقی متناسب با فضای ویدئو.</td>
+                <td>
+                  <a href="https://boomy.com" target="_blank" class="tool-link">Boomy</a>,
+                  <a href="https://www.udio.com" target="_blank" class="tool-link">Udio</a>,
+                  <a href="https://suno.com" target="_blank" class="tool-link">Suno</a>
+                </td>
+              </tr>
+              <tr>
+                <td>۴. تولید صدای روایت</td>
+                <td>تبدیل متن روایت به گفتار با صدای طبیعی.</td>
+                <td>
+                  <a href="https://elevenlabs.io" target="_blank" class="tool-link">ElevenLabs</a>,
+                  <a href="https://speechify.com" target="_blank" class="tool-link">Speechify</a>,
+                  <a href="https://ttsmp3.com" target="_blank" class="tool-link">TTSMP3</a>
+                </td>
+              </tr>
+              <tr>
+                <td>۵. تولید ویدیو</td>
+                <td>تبدیل تصاویر به ویدیو در سکانس‌های مختلف.</td>
+                <td>
+                  <a href="https://www.veed.io" target="_blank" class="tool-link">Veed.io</a>,
+                  <a href="https://runwayml.com" target="_blank" class="tool-link">Runway</a>,
+                  <a href="https://openai.com/sora" target="_blank" class="tool-link">Sora</a>
+                </td>
+              </tr>
+              <tr>
+                <td>۶. افزودن انیمیشن (اختیاری)</td>
+                <td>ایجاد انیمیشن‌های ساده برای افزایش جذابیت ویدئو.</td>
+                <td>
+                  <a href="https://www.animaker.com" target="_blank" class="tool-link">Animaker</a>,
+                  <a href="https://www.moovly.com" target="_blank" class="tool-link">Moovly</a>
+                </td>
+              </tr>
+              <tr>
+                <td>۷. تدوین ویدیو</td>
+                <td>ترکیب تصاویر، موسیقی و صدای روایت؛ افزودن زیرنویس و افکت‌های لازم.</td>
+                <td>
+                  <a href="https://www.capcut.com" target="_blank" class="tool-link">CapCut</a>,
+                  <a href="https://www.blackmagicdesign.com/products/davinciresolve" target="_blank" class="tool-link">DaVinci Resolve</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
 
-<section style="max-width: 900px; margin: 2rem auto; padding: 2rem; background: #ffffff; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.05); line-height: 1.8; direction: rtl; font-family: 'Vazirmatn', sans-serif;">
-  <h2 style="color: #2d89ef;">توضیح مراحل تولید ویدئو</h2>
-  <ul>
-    <li><strong>مرحله اول:</strong> ابزارهای هوش مصنوعی برای ایده‌پردازی و نگارش متن هستند که به شما در تهیه سناریو کمک می‌کنند.</li>
-    <li><strong>مرحله دوم:</strong> ابزارهایی برای تولید تصاویر مبتنی بر متن هستند که می‌توانید تصاویر مورد نیاز خود را با وارد کردن توضیحات متنی ایجاد کنید و سپس با استفاده از ابزارهای ارتقا کیفیت را افزایش و یا تصاویر خود را ویرایش نمایید.</li>
-    <li><strong>مرحله سوم:</strong> به شما امکان می‌دهد موسیقی‌های پس‌زمینه متناسب با ویدئوی خود را به‌صورت خودکار تولید کنید.</li>
-    <li><strong>مرحله چهارم:</strong> ابزارهای تبدیل متن به گفتار با صدای طبیعی هستند که می‌توانید از آن‌ها برای تولید صدای روایت ویدئو استفاده کنید.</li>
-    <li><strong>مرحله پنجم:</strong> ابزارهایی برای تبدیل تصاویر به ویدیو همراه با توصیف سکانس بخشی از سناریو مبتنی بر متن به ویدیو و تصویر به ویدیو هستند.</li>
-    <li><strong>مرحله ششم:</strong> ابزاری برای ساخت انیمیشن‌های ساده است که می‌تواند به جذابیت بیشتر ویدئوی شما کمک کند.</li>
-    <li><strong>مرحله هفتم:</strong> ابزارهای آنلاین و آفلاین و نرم افزارهایی برای تدوین ویدئو هستند که امکاناتی مانند برش ویدئو، افزودن متن، زیرنویس، موسیقی و افکت‌های مختلف را فراهم می‌کنند.</li>
-  </ul>
-  <div style="background-color: #fdf6e3; border: 1px solid #e3c97f; padding: 1rem; border-radius: 8px; margin-top: 2rem;">
-    <strong style="color: #c0392b;">نکته مهم:</strong>
-    <p style="margin-top: 0.5rem;">
-      با توجه به اینکه طبق قوانین هیچ یک از تیم‌ها نباید خارج از ابزارها و نرم‌افزارهای ذکر شده در روز مسابقه فعالیت داشته باشند، اما با صلاحدید داوران و جهت بالا بردن سطح خلاقیت شما شرکت‌کنندگان محترم، امکان پیشنهاد <strong>۳ ابزار هوش مصنوعی دلخواه</strong> در کل فرآیند با موافقت داوران غرفه فراهم می‌باشد.
-    </p>
-    <p>در صورت استفاده از این فورجه، می‌بایست حتما لیست آن را به داوران غرفه با امضای تمامی شرکت‌کنندگان تحویل دهید؛ در غیر این‌صورت تخلف محسوب می‌شود.</p>
-    <p>این فورجه الزامی نبوده و در صورت عدم استفاده از آن، امتیازی را از دست نمی‌دهید.</p>
-  </div>
-</section>
+      <section class="section-card">
+        <h2>توضیح مراحل تولید ویدئو</h2>
+        <ul class="steps-list">
+          <li id="step1">
+            <strong>مرحله اول:</strong>
+            ابزارهای هوش مصنوعی برای ایده‌پردازی و نگارش متن هستند که به شما در تهیه سناریو کمک می‌کنند.
+          </li>
+          <li id="step2">
+            <strong>مرحله دوم:</strong>
+            ابزارهایی برای تولید تصاویر مبتنی بر متن هستند که می‌توانید تصاویر مورد نیاز خود را با وارد کردن توضیحات متنی ایجاد کنید و سپس با استفاده از ابزارهای ارتقا کیفیت را افزایش و یا تصاویر خود را ویرایش نمایید.
+          </li>
+          <li id="step3">
+            <strong>مرحله سوم:</strong>
+            به شما امکان می‌دهد موسیقی‌های پس‌زمینه متناسب با ویدئوی خود را به‌صورت خودکار تولید کنید.
+          </li>
+          <li id="step4">
+            <strong>مرحله چهارم:</strong>
+            ابزارهای تبدیل متن به گفتار با صدای طبیعی هستند که می‌توانید از آن‌ها برای تولید صدای روایت ویدئو استفاده کنید.
+          </li>
+          <li id="step5">
+            <strong>مرحله پنجم:</strong>
+            ابزارهایی برای تبدیل تصاویر به ویدیو همراه با توصیف سکانس بخشی از سناریو مبتنی بر متن به ویدیو و تصویر به ویدیو هستند.
+          </li>
+          <li id="step6">
+            <strong>مرحله ششم:</strong>
+            ابزاری برای ساخت انیمیشن‌های ساده است که می‌تواند به جذابیت بیشتر ویدئوی شما کمک کند.
+          </li>
+          <li id="step7">
+            <strong>مرحله هفتم:</strong>
+            ابزارهای آنلاین و آفلاین و نرم افزارهایی برای تدوین ویدئو هستند که امکاناتی مانند برش ویدئو، افزودن متن، زیرنویس، موسیقی و افکت‌های مختلف را فراهم می‌کنند.
+          </li>
+        </ul>
+      </section>
 
-  
+      <section class="notice-card">
+        <h3>نکته مهم</h3>
+        <p>
+          با توجه به اینکه طبق قوانین هیچ یک از تیم‌ها نباید خارج از ابزارها و نرم‌افزارهای ذکر شده در روز مسابقه فعالیت داشته باشند، اما با صلاحدید داوران و جهت بالا بردن سطح خلاقیت شما شرکت‌کنندگان محترم، امکان پیشنهاد <strong>۳ ابزار هوش مصنوعی دلخواه</strong> در کل فرآیند با موافقت داوران غرفه فراهم می‌باشد.
+        </p>
+        <p>در صورت استفاده از این فورجه، می‌بایست حتما لیست آن را به داوران غرفه با امضای تمامی شرکت‌کنندگان تحویل دهید؛ در غیر این‌صورت تخلف محسوب می‌شود.</p>
+        <p>این فورجه الزامی نبوده و در صورت عدم استفاده از آن، امتیازی را از دست نمی‌دهید.</p>
+      </section>
+    </main>
+
+    <script>
+      function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        sidebar.classList.toggle('active');
+      }
+
+      function closeSidebarOnMobile() {
+        if (window.innerWidth <= 768) {
+          const sidebar = document.getElementById('sidebar');
+          sidebar.classList.remove('active');
+        }
+      }
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+          });
+        });
+      });
+    </script>
   </body>
 </html>
